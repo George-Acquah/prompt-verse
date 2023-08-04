@@ -16,13 +16,15 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
         <body>
-           <div className="main">
-             <div className="gradient" />
-            </div> 
-            <main className="app">
-                <Navbar />
-                {children}
-            </main>
+          <Provider session={undefined}>
+            <div className="main">
+                <div className="gradient" />
+                </div> 
+                <main className="app">
+                    <Navbar />
+                    {children}
+                </main>
+          </Provider>
         </body>
     </html>
   )
