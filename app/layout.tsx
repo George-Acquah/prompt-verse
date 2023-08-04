@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import "@styles/globals.css";
+import Navbar from '@components/Navbar';
+import Provider from '@components/Provider';
 
 export const metadata = {
     title: "PromptVerse",
@@ -18,6 +20,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
              <div className="gradient" />
             </div> 
             <main className="app">
+                <Navbar />
                 {children}
             </main>
         </body>

@@ -1,3 +1,5 @@
+import Feed from '@components/Feed';
+
 const Home = () => {
   return (
     <section className="w-full flex-center  flex-col">
@@ -9,6 +11,7 @@ const Home = () => {
         <p className="desc text-center">PromptVerse is an expansive universe of AI-crafted prompts that propel creators on thrilling journeys of artistic expression and storytelling 👌✨.
         </p>
         {/* feed */}
+        <Feed />
     </section>
   )
 }
