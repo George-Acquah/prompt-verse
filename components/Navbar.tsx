@@ -13,7 +13,9 @@ interface IProvidersResponse {
 }
 
 const Navbar = (props: Props) => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(true);
+  
+  const { data: session } = useSession() || { data: null };
+
 
   const [toggleDropDown, setToggleDropDown] = useState<boolean>(false);
 
@@ -47,7 +49,7 @@ const Navbar = (props: Props) => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
         <div className='flex gap-3 md:gap-5'>
           <Link 
           href='create-promp' 
@@ -56,7 +58,7 @@ const Navbar = (props: Props) => {
           </Link>
           <button 
             type="button"
-            onClick={() => signOut}
+            onClick={() => signOut()}
             className='outline_btn'>
               Sign Out
             </button>
@@ -88,7 +90,7 @@ const Navbar = (props: Props) => {
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
         <div className='flex'>
           <Image
             src='/assets/images/logo.svg'
