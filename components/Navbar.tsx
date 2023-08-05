@@ -51,7 +51,7 @@ const Navbar = (props: Props) => {
         {session?.user ? (
         <div className='flex gap-3 md:gap-5'>
           <Link 
-          href='create-promp' 
+          href='create-prompt' 
           className='black_btn'>
             Create Prompt
           </Link>
