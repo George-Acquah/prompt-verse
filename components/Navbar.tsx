@@ -16,7 +16,6 @@ const Navbar = (props: Props) => {
   
   const { data: session } = useSession() || { data: null };
 
-
   const [toggleDropDown, setToggleDropDown] = useState<boolean>(false);
 
   const [providers, setProviders] = useState<IProvidersResponse | null >(null);
@@ -65,7 +64,7 @@ const Navbar = (props: Props) => {
             <Link
               href='/profile'>
               <Image
-                src='/assets/images/logo.svg'
+                src={session?.user.image ?? '/assets/images/logo.svg'}
                 alt='profile'
                 width={37}
                 height={37} 
@@ -93,11 +92,11 @@ const Navbar = (props: Props) => {
         {session?.user ? (
         <div className='flex'>
           <Image
-            src='/assets/images/logo.svg'
+            src={session?.user.image ?? '/assets/images/logo.svg'}
             alt='profile'
             width={37}
             height={37} 
-            className='rounded-full'
+            className='rounded-full cursor-pointer'
             onClick={() => setToggleDropDown(prev => !prev)}
           />
           { toggleDropDown && (
