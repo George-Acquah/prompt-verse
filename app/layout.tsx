@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import "@styles/globals.css";
 import Navbar from '@components/Navbar';
 import Provider from '@components/Provider';
+import { Session } from 'next-auth';
 
 export const metadata = {
     title: "PromptVerse",
@@ -10,13 +11,14 @@ export const metadata = {
 
 type RootLayoutProps = {
   children: ReactNode;
+  session: Session;
 };
 
-const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+const RootLayout: React.FC<RootLayoutProps> = ({ children, session }) => {
   return (
     <html lang="en">
         <body>
-          <Provider session={undefined}>
+          <Provider session={session}>
             <div className="main">
                 <div className="gradient" />
                 </div> 
