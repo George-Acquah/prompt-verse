@@ -13,7 +13,8 @@ interface IProvidersResponse {
 }
 
 const Navbar = (props: Props) => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(true);
+  
+  const { data: session } = useSession() || { data: null };
 
   const [toggleDropDown, setToggleDropDown] = useState<boolean>(false);
 
@@ -47,23 +48,23 @@ const Navbar = (props: Props) => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
         <div className='flex gap-3 md:gap-5'>
           <Link 
-          href='create-promp' 
+          href='create-prompt' 
           className='black_btn'>
             Create Prompt
           </Link>
           <button 
             type="button"
-            onClick={() => signOut}
+            onClick={() => signOut()}
             className='outline_btn'>
               Sign Out
             </button>
             <Link
               href='/profile'>
               <Image
-                src='/assets/images/logo.svg'
+                src={session?.user.image ?? '/assets/images/logo.svg'}
                 alt='profile'
                 width={37}
                 height={37} 
@@ -88,14 +89,14 @@ const Navbar = (props: Props) => {
 
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
         <div className='flex'>
           <Image
-            src='/assets/images/logo.svg'
+            src={session?.user.image ?? '/assets/images/logo.svg'}
             alt='profile'
             width={37}
             height={37} 
-            className='rounded-full'
+            className='rounded-full cursor-pointer'
             onClick={() => setToggleDropDown(prev => !prev)}
           />
           { toggleDropDown && (
