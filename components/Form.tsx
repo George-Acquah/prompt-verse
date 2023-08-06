@@ -5,7 +5,6 @@ const Form = ({
         post, 
         setPost, 
         submitting, 
-        setSubmitting,
         handleSubmit,
       }: FormProps) => {
   return (
