@@ -8,7 +8,6 @@ interface ICreatePrompt extends IPost {
 }
 
 
-
 //FORMS 
 type FormProps = {
     type: string;
