@@ -1,35 +1,43 @@
-import { ReactNode } from 'react';
-import "@styles/globals.css";
-import Navbar from '@components/Navbar';
-import Provider from '@components/Provider';
-import { Session } from 'next-auth';
+import type { Metadata } from "next";
+import {
+  JetBrains_Mono as FontMono,
+  Inter as FontSans,
+} from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import "@/styles/globals.css";
+import { ToastHandler } from "@/components/toastHandler";
 
-export const metadata = {
-    title: "PromptVerse",
-    description: "Ignite Creativity & Explore Infinite Prompts"
-}
 
-type RootLayoutProps = {
-  children: ReactNode;
-  session: Session;
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontMono = FontMono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+export const metadata: Metadata = {
+  title: "PromptVerse",
+  description: "Ignite Creativity & Explore Infinite Prompts",
 };
 
-const RootLayout: React.FC<RootLayoutProps> = ({ children, session }) => {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en">
-        <body>
-          <Provider session={session}>
-            <div className="main">
-                <div className="gradient" />
-                </div> 
-                <main className="app">
-                    <Navbar />
-                    {children}
-                </main>
-          </Provider>
-        </body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fontSans.variable} ${fontMono.variable} antialiased`}>
+        <Toaster />
+        <ToastHandler />
+        <div className="main">
+          <div className="gradient" />
+        </div>
+        {children}
+      </body>
     </html>
-  )
+  );
 }
-
-export default RootLayout;

@@ -1,88 +1,77 @@
-import Link from 'next/link';
+"use client";
 
-const Form = ({
-        type,
-        post, 
-        setPost, 
-        submitting, 
-        handleSubmit,
-      }: FormProps) => {
-  return (
-    <section className="w-full max-w-full flext-start flex-col">
-      <h1 className="head_text text-left">
-        <span className="blue_gradient capitalize">
-          {type} Prompt
-        </span>
-      </h1>
-      <p className="desc text-left max-w-md">
-        {type} and share amazing prompt with the world, and let your imagination run wild with any <span className='orange_gradient font-medium'> AI-Powered</span>  platform.
-      </p>
+import { useActionState, ChangeEvent, useState } from "react";
+import Link from "next/link";
+import Input from "./ui/input";
+import { createUpdatePromptFields } from "@/lib/constants/form.constant";
 
-      <form 
-        action="" 
-        method="post"
-        onSubmit={handleSubmit}
-        className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
-        >
-          <label htmlFor="">
-            <span className='font-semibold fonr-satoshi text-base text-gray-700'>Your AI Prompt</span>
-          </label>
-
-          <textarea 
-          name="" 
-          id="" 
-          className="form_textarea"
-          placeholder='Write your prompt here...'
-          required
-          value={post.prompt}
-          onChange={(e) => setPost({
-            ...post,
-            prompt: e.target.value
-          })}>
-
-          </textarea>
-
-          <label htmlFor="">
-            <span className='font-semibold fonr-satoshi text-base text-gray-700'>
-              Tag {` `}
-              <span className="font-normal">
-                (#product, # webdevelopment, #idea, #AI)
-              </span>
-            </span>
-          </label>
-
-          <input 
-          name="" 
-          id="" 
-          className="form_input"
-          placeholder='#tag'
-          required
-          value={post.tag}
-          onChange={(e) => setPost({
-            ...post,
-            tag: e.target.value
-          })}>
-          </input>
-
-          <div className="flex-end mx-3 mb-5 gap-4">
-            <Link 
-              href='/'
-              className='text-gray-500 text-sm'
-            >
-              Cancel
-            </Link>
-
-            <button 
-              type="submit"
-              disabled={submitting}
-              className='px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white'
-            >
-              {submitting ? `${type}...` : type}
-            </button>
-          </div>
-      </form>
-    </section>
-  )
+interface _IForm<T extends Record<string, unknown>> {
+  type: "create" | "update";
+  initialState: FormActionState<T>;
+  action: (
+    _prevState: FormActionState<T>,
+    payload: FormData
+  ) => Promise<FormActionState<T>>;
+  id?: string;
 }
 
-export default Form
+const Form = <T extends Record<string, unknown>>({
+  type,
+  initialState,
+  action,
+  id,
+}: _IForm<T>) => {
+  const [state, formAction, isPending] = useActionState(action, initialState);
+  const [promptType, setPromptType] = useState(
+    state?.data?.private ? "private" : "public"
+  );
+
+  const handlePromptTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPromptType(e.target.value);
+  };
+
+  return (
+    <form
+      action={formAction}
+      className="mt-6 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
+    >
+      {type === "update" && id && (
+        <input type="text" defaultValue={id} name={"id"} className="hidden" />
+      )}
+      {createUpdatePromptFields.map((field) => (
+        <Input
+          key={field.id}
+          {...field}
+          errors={state.errors?.[field.id]}
+          value={
+            field.id === "private"
+              ? promptType
+              : state.data?.[field.id as keyof typeof state.data]
+          }
+          onChange={field.id === "private" ? handlePromptTypeChange : undefined}
+        />
+      ))}
+
+      <div className="flex-end mx-3 mb-5 gap-4">
+        <Link href="/" className="text-gray-500 text-sm md:text-base">
+          Cancel
+        </Link>
+        <button
+          type="submit"
+          disabled={isPending}
+          className="px-5 py-1.5 text-sm bg-[#FF5722]/90 rounded-full text-white capitalize cursor-pointer disabled:bg-[#FF5722]/30 disabled:cursor-auto md:text-base"
+        >
+          {isPending ? "Please wait ..." : type}
+        </button>
+      </div>
+
+      {state?.errors?.general && (
+        <p className="text-red-500 text-sm mt-2">
+          {state.errors.general.join(", ")}
+        </p>
+      )}
+    </form>
+  );
+};
+
+export default Form;
