@@ -513,6 +513,34 @@ function IconChevronUpDown({
   )
 }
 
+function IconChevronUp({ className, ...props }: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      className={cn("h-4 w-4", className)}
+      viewBox="0 0 256 256"
+      {...props}
+    >
+      <path d="M213.66 165.66a8 8 0 0 1-11.32 0L128 91.31l-74.34 74.35a8 8 0 0 1-11.32-11.32l80-80a8 8 0 0 1 11.32 0l80 80a8 8 0 0 1 0 11.32Z" />
+    </svg>
+  );
+}
+
+function IconChevronDown({ className, ...props }: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      className={cn("h-4 w-4", className)}
+      viewBox="0 0 256 256"
+      {...props}
+    >
+      <path d="M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32Z" />
+    </svg>
+  );
+}
+
 function IconInfo({ className, ...props }: React.ComponentProps<'svg'>) {
   return (
     <svg
@@ -544,7 +572,7 @@ function IconAdjustmentsHorizontal({
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M6 13.5h12m-8-4.5h8m-11 9h11m-6-4.5v6m0-13.5V6m0 3v.008M6 6h.008M6 6a2.25 2.25 0 1 1 4.5 0A2.25 2.25 0 0 1 6 6zm6 6.75A2.25 2.25 0 1 1 6 13.5a2.25 2.25 0 0 1 6 0z"
+        d="M10.5 6h9M10.5 12h9M10.5 18h9M6 6a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0 6a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0 6a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
       />
     </svg>
   );
@@ -599,4 +627,6 @@ export {
   IconInfo,
   IconAdjustmentsHorizontal,
   IconHeart,
+  IconChevronUp,
+  IconChevronDown,
 };

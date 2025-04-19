@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, forwardRef, ReactNode, useRef } from "react";
+import React, { useState, forwardRef, ReactNode, useRef, useEffect } from "react";
 
 import { Button, ButtonProps } from "./button";
 
-import { IconArrowRight, IconCheck } from "./icons";
+import { IconArrowRight, IconCheck, IconChevronDown, IconChevronUp } from "./icons";
 import { useOutsideClick } from "@/lib/hooks/use-outside-click.hook";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,16 @@ interface DropdownMenuProps {
   className?: string;
   style?: React.CSSProperties;
 }
+
+interface DropdownMenuCollapsibleProps {
+  trigger: ReactNode;
+  children: ReactNode;
+  defaultOpen?: boolean;
+  className?: string;
+  headerClassName?: string;
+  contentClassName?: string;
+}
+
 
 interface DropdownItemProps {
   className?: string;
@@ -270,3 +280,64 @@ export const DropdownMenuShortcut: React.FC<DropdownItemProps> = ({
     {children}
   </span>
 );
+
+
+export const DropdownMenuCollapsible: React.FC<
+  DropdownMenuCollapsibleProps
+> = ({
+  trigger,
+  children,
+  defaultOpen = true,
+  className = "",
+  headerClassName = "",
+  contentClassName = "",
+}) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number | string>(0);
+
+  // Calculate content height when opened or children change
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    } else {
+      setContentHeight(0);
+    }
+  }, [isOpen, children]);
+
+  return (
+    <div className={cn("overflow-hidden", className)}>
+      <div
+        className={cn(
+          "flex items-center justify-between cursor-pointer py-1 px-4 hover:bg-gray-50 dark:hover:bg-neutral-700 rounded-md transition-colors",
+          headerClassName
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+      >
+        {trigger}
+        <span className="transition-transform duration-200">
+          {isOpen ? (
+            <IconChevronUp className="h-4 w-4 ml-2 text-muted-foreground" />
+          ) : (
+            <IconChevronDown className="h-4 w-4 ml-2 text-muted-foreground" />
+          )}
+        </span>
+      </div>
+
+      <div
+        ref={contentRef}
+        className={cn(
+          "transition-all duration-300 ease-in-out overflow-hidden",
+          contentClassName
+        )}
+        style={{
+          height: isOpen ? contentHeight : 0,
+          opacity: isOpen ? 1 : 0.8,
+        }}
+      >
+        <div className="py-1">{children}</div>
+      </div>
+    </div>
+  );
+};

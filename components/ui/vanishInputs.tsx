@@ -49,7 +49,7 @@ export function PlaceholdersAndVanishInput({
       {!value && (
         <p
           className={cn(
-            "dark:text-zinc-500 text-sm sm:text-base font-normal text-neutral-500 pl-4 sm:pl-12 text-left w-[calc(100%-2rem)] truncate transition-opacity duration-300 ease-linear",
+            "dark:text-zinc-500 text-sm sm:text-base font-normal text-neutral-500 pl-12 text-left w-[calc(100%-2rem)] truncate transition-opacity duration-300 ease-linear",
             isPending ? "opacity-0" : "opacity-100"
           )}
         >
@@ -84,12 +84,12 @@ export function PlaceholdersAndVanishInput({
           }
         }}
         className={cn(
-          "w-full text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-12 pr-20",
+          "w-full text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-12 pr-20",
           isPending && "text-opacity-30 dark:text-opacity-30"
         )}
       />
 
-      <div className="absolute z-50 left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition duration-200 flex items-center justify-center  border-r border-r-neutral-300 dark:border-neutral-600">
+      <div className="absolute z-50 left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition transition-all duration-200 flex items-center justify-center border-r border-r-neutral-300 dark:border-neutral-600">
         <AppFilters filterStyles={filterStyles} tags={tags} />
       </div>
       <button

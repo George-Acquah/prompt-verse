@@ -55,7 +55,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           id: user._id.toString(),
           email: user.email,
           name: user.username,
-          image: user.image,
+          image: user?.image,
         };
       },
     }),
@@ -70,7 +70,6 @@ callbacks: {
 
       await connectToDB();
 
-      // Check if user already exists in DB
       let existingUser = await User.findOne({ email: user.email });
 
       if (!existingUser) {
