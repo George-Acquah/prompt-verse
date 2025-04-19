@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
 } from "./ui/dropdown";
 import { Typography } from "./ui/typography";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties  } from "react";
 import { cn } from "@/lib/utils";
 import { IconAdjustmentsHorizontal } from "./ui/icons";
 import useCustomSearchParams from "@/lib/hooks/use-custom-search.hook";
@@ -33,38 +33,40 @@ const sortOptions: IDropdownArray[] = [
 const AppFilters = ({
   filterStyles,
   className,
+  tags
 }: {
   filterStyles: CSSProperties | undefined;
-  className?: string;
+    className?: string;
+  tags: _ITrendingTags[]
   }) => {
-  const [tagsData, setTagsData] = useState<_ITrendingTags[]>([]);
+  // const [tagsData, setTagsData] = useState<_ITrendingTags[]>([]);
   const {
     handleSetParams,
     modalValue: value,
     paramValues,
   } = useCustomSearchParams("PRIVACY_STATUS", ["TAG", "SORT"]);
 
-  useEffect(() => {
-    const fetchTags = async () => {
-        try {
-          const response = await fetch(`/api/tags?limit=${5}`);
+  // useEffect(() => {
+  //   const fetchTags = async () => {
+  //       try {
+  //         const response = await fetch(`/api/tags?limit=${5}`);
     
-          if (!response.ok) {
-            throw new Error("Fetch failed");
-          }
+  //         if (!response.ok) {
+  //           throw new Error("Fetch failed");
+  //         }
     
-          const responseData = (await response.json()) as _ITrendingTags[];
-          setTagsData(responseData);
-        } catch (err) {
-          console.log(err);
-          setTagsData([]);
-        } finally {
+  //         const responseData = (await response.json()) as _ITrendingTags[];
+  //         setTagsData(responseData);
+  //       } catch (err) {
+  //         console.log(err);
+  //         setTagsData([]);
+  //       } finally {
           
-        }
-      };
-    fetchTags();
+  //       }
+  //     };
+  //   fetchTags();
     
-  }, [])
+  // }, [])
 
   const tagValue = paramValues.TAG;
   const sortValue = paramValues.SORT;
@@ -99,7 +101,7 @@ const AppFilters = ({
           <DropdownMenuLabel className="mt-2">
             <Typography variant="h5">Filter by Tag</Typography>
           </DropdownMenuLabel>
-          {tagsData.map((tag) => (
+          {tags.map((tag) => (
             <DropdownMenuItem
               key={tag._id}
               onClick={() => {

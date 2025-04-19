@@ -4,7 +4,7 @@ import { CopyPrompt, PromptTag, SharePrompt } from "@/components/promptClients";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-// import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 
 type Params = {
   params: Promise<{
@@ -18,8 +18,7 @@ const PromptPage = async ({ params }: Params) => {
   const session = await auth();
 
   if (!prompt) {
-    // notFound();
-    return;
+    notFound();
   }
 
   return (

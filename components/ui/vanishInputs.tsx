@@ -9,6 +9,7 @@ interface _IVanishingInput {
   defaultValue: string;
   isPending: boolean;
   disabled?: boolean;
+  tags?: _ITrendingTags[];
 }
 
 export function PlaceholdersAndVanishInput({
@@ -17,6 +18,7 @@ export function PlaceholdersAndVanishInput({
   defaultValue,
   isPending,
   disabled,
+  tags = []
 }: _IVanishingInput) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
   const [value, setValue] = useState(defaultValue);
@@ -33,17 +35,15 @@ export function PlaceholdersAndVanishInput({
     isMobile
   );
 
-  // Handle placeholder cycling every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPlaceholder((prev) => (prev + 1) % placeholders.length);
     }, 3000);
 
-    return () => clearInterval(interval); // Clean up interval on component unmount
+    return () => clearInterval(interval);
   }, [placeholders]);
 
 
-  // Simple rendering of placeholder
   const renderPlaceholders = () => (
     <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
       {!value && (
@@ -90,7 +90,7 @@ export function PlaceholdersAndVanishInput({
       />
 
       <div className="absolute z-50 left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition duration-200 flex items-center justify-center  border-r border-r-neutral-300 dark:border-neutral-600">
-        <AppFilters filterStyles={filterStyles} />
+        <AppFilters filterStyles={filterStyles} tags={tags} />
       </div>
       <button
         disabled={isPending || disabled}
@@ -98,7 +98,6 @@ export function PlaceholdersAndVanishInput({
         aria-label="Submit Search Button"
         className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 rounded-full disabled:bg-gray-100 bg-black dark:bg-zinc-900 dark:disabled:bg-zinc-800 transition duration-200 flex items-center justify-center"
       >
-        {/* Show spinner if isPending, otherwise show the arrow icon */}
         {isPending ? (
           <svg
             className="animate-spin h-5 w-5 text-white"

@@ -1,4 +1,5 @@
 import Feed from "@/components/Feed";
+import { Suspense } from "react";
 
 type Params = { searchParams: Promise<_ISearchQuery> };
 
@@ -20,7 +21,9 @@ const ExplorePage = async ({ searchParams }: Params) => {
         👌✨.
       </p>
       {/* feed */}
-      <Feed searchParam={searchParam}/>
+      <Suspense fallback={<p>loading feeds...</p>}>
+        <Feed searchParam={searchParam} />
+      </Suspense>
     </section>
   );
 };

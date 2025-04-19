@@ -9,6 +9,7 @@ interface IProps<T> {
   entityType: T;
   placeholders?: string[];
   disabled?: boolean;
+  tags?: _ITrendingTags[];
 }
 
 type SearchParamKeys = keyof typeof SEARCH_PARAMS;
@@ -21,6 +22,7 @@ export default function Search<T extends SearchParamKeys>({
     "Search for prompt name",
     "Search for creator name",
   ],
+  tags = []
 }: IProps<T>) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -50,6 +52,7 @@ export default function Search<T extends SearchParamKeys>({
         }
         isPending={isPending}
         disabled={disabled}
+        tags={tags}
       />
     </div>
   );

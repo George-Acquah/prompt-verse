@@ -1,9 +1,7 @@
 import { getPromptById, updatePrompt } from "@/app/utils/action";
 import Form from "@/components/Form";
-import Loading from "@/components/loading";
 import { FormDataType, PromptActionState } from "@/schema/prompt.schema";
-import { Suspense } from "react";
-// import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 
 type Params = {
   params: Promise<{
@@ -15,8 +13,7 @@ const EditPrompt = async ({ params }: Params) => {
   const { data } = await getPromptById(prompt_id);
 
   if (!data) {
-    // notFound();
-    return;
+    notFound();
   }
 
   const initialState: PromptActionState = {
@@ -40,14 +37,12 @@ const EditPrompt = async ({ params }: Params) => {
         platform.
       </p>
 
-      <Suspense fallback={ <Loading />}>
-        <Form<FormDataType>
-          type="update"
-          initialState={initialState}
-          action={updatePrompt}
-          id={data._id}
-        />
-      </Suspense>
+      <Form<FormDataType>
+        type="update"
+        initialState={initialState}
+        action={updatePrompt}
+        id={data._id}
+      />
     </section>
   );
 };
