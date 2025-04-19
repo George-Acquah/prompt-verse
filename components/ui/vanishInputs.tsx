@@ -89,7 +89,7 @@ export function PlaceholdersAndVanishInput({
         )}
       />
 
-      <div className="absolute z-50 left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition transition-all duration-200 flex items-center justify-center border-r border-r-neutral-300 dark:border-neutral-600">
+      <div className="absolute z-50 left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition-all duration-200 flex items-center justify-center border-r border-r-neutral-300 dark:border-neutral-600">
         <AppFilters filterStyles={filterStyles} tags={tags} />
       </div>
       <button

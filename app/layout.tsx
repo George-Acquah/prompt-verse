@@ -8,6 +8,7 @@ import "@/styles/globals.css";
 // import { ToastHandler } from "@/components/toastHandler";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+import Footer from "@/components/footer";
 
 
 const fontSans = FontSans({
@@ -48,6 +49,7 @@ export default function RootLayout({
           <div className="gradient" />
         </div>
         {children}
+        <Footer />
       </body>
     </html>
   );

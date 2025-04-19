@@ -1,15 +1,14 @@
 import { Suspense } from "react"
 import dynamic from "next/dynamic";
-import { Typography } from "./ui/typography";
-import Loading from "./loading";
 import { getTrendingTags } from "@/app/utils/action";
+import { PromptListSkeleton, SearchSkeleton } from "./skeletons/promptListSkeleton";
 
-const Search = dynamic(() => import("@/components/search"), {
-  loading: () => <Typography variant="span">Loading...</Typography>,
+const FeedSearch = dynamic(() => import("@/components/promptClients").then(mod => mod.FeedSearch), {
+  loading: () => <SearchSkeleton />,
 });
 
 const PromptList = dynamic(() => import("@/components/promptList"), {
-  loading: () => <Loading />,
+  loading: () => <PromptListSkeleton />,
 });
 
 const Feed = async ({ searchParam  }: { searchParam: _ISearchQuery }) => {
@@ -18,10 +17,20 @@ const Feed = async ({ searchParam  }: { searchParam: _ISearchQuery }) => {
   return (
     <section className="feed">
       <div className="flex justify-start items-center gap-3 w-full">
-        <Search entityType="QUERY" tags={tags} />
+        <FeedSearch tags={tags} />
       </div>
-      <Suspense fallback={<Loading />}>
-        <PromptList size={size} page={page} query={query} tag={tag} sort={ sort} />
+      <Suspense
+        fallback={
+          <PromptListSkeleton />
+        }
+      >
+        <PromptList
+          size={size}
+          page={page}
+          query={query}
+          tag={tag}
+          sort={sort}
+        />
       </Suspense>
     </section>
   );

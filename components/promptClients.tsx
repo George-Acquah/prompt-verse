@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
@@ -9,6 +8,9 @@ import useCustomSearchParams from "@/lib/hooks/use-custom-search.hook";
 import { deletePrompt, likePrompt } from "@/app/utils/action";
 import { cn } from "@/lib/utils";
 import { UseErrorToast } from "@/lib/toast";
+import useIsMobile from "@/lib/hooks/use-mobile-view.hook";
+import useNavbarScroll from "@/lib/hooks/use-navbar-scroll";
+import Search from "./search";
 
 export const SharePrompt = ({ prompt }: { prompt: string }) => {
   const handleShareClick = () => {
@@ -72,6 +74,7 @@ export const PromptTag = ({ tag }: { tag: string }) => {
 };
 
 export const DeletePrompt = ({ prompt_id }: { prompt_id: string }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, action, isPending] = useActionState(deletePrompt, {});
   return (
     <form action={action}>
@@ -136,3 +139,14 @@ export const LikePrompt = ({
     </form>
   );
 };
+
+export const FeedSearch = ({ tags = []}: {tags?: _ITrendingTags[]}) => {
+
+  const isMobile = useIsMobile();
+  const isNavbarFixed = useNavbarScroll();
+  return (
+    <>
+      {!(isMobile && isNavbarFixed) && <Search entityType="QUERY" tags={tags} />}
+    </>
+  );
+}

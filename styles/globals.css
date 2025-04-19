@@ -13,13 +13,17 @@
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
 */
 
+html {
+  scroll-behavior: smooth;
+}
+
 .main {
   width: 100vw;
   min-height: 100vh;
   position: fixed;
   display: flex;
   justify-content: center;
-  padding: 120px 24px 160px 24px;
+  padding: 40px 24px 60px 24px;
   pointer-events: none;
 }
 
@@ -35,7 +39,7 @@
 
 .main:after {
   content: "";
-  background-image: url("/assets/images/grid.svg");
+  /* background-image: url("/assets/images/grid.svg"); */
   z-index: 1;
   position: absolute;
   width: 100%;
@@ -50,24 +54,22 @@
   z-index: 3;
   width: 100%;
   max-width: 640px;
-  background-image: radial-gradient(
-      at 27% 37%,
-      hsla(215, 98%, 61%, 1) 0px,
-      transparent 0%
-    ),
-    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
-    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
-    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
-    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
-    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  background-image: 
+    radial-gradient(at 15% 25%, hsl(0, 0%, 60%) 0px, transparent 0%),
+    radial-gradient(at 85% 15%, hsl(30, 10%, 77%) 0px, transparent 40%),
+    radial-gradient(at 45% 65%, hsl(0, 0%, 95%) 0px, transparent 35%),
+    radial-gradient(at 75% 55%, hsl(0, 0%, 82%) 0px, transparent 45%),
+    radial-gradient(at 25% 45%, hsl(0, 0%, 70%) 0px, transparent 25%),
+    radial-gradient(at 65% 35%, hsl(0, 0%, 15%) 0px, transparent 20%);
+  filter: blur(50px) saturate(110%);
+  opacity: 0.25;
   position: absolute;
-  content: "";
   width: 100%;
   height: 100%;
-  filter: blur(100px) saturate(150%);
-  top: 80px;
-  opacity: 0.15;
+  /* filter: blur(60px) saturate(120%); */
+  top: 20px;
+  /* opacity: 0.2; */
+  mix-blend-mode: multiply;
 }
 
 /* .main.elegant-night {
@@ -149,7 +151,7 @@
 
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+  @apply relative flex justify-center items-center flex-col max-w-7xl mx-auto ;
 }
 
 .black_btn {
@@ -235,17 +237,15 @@
 .glassmorphism_orange {
   @apply rounded-xl border border-orange-300 bg-orange-100/20 shadow-[inset_10px_-50px_94px_0_rgb(255, 159, 67, 0.2)] backdrop-blur p-5;
 } */
-
-
-
+ 
 
 .prompt_layout {
-  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+  @apply space-y-3 md:space-y-6 py-4 md:py-8 px-1 md:px-0 sm:columns-2 sm:gap-6 xl:columns-3;
 }
 
 /* Feed Component */
 .feed {
-  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+  @apply mt-8 md:mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
 }
 
 /* Form Component */
@@ -272,7 +272,7 @@
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-4 md:p-6 pb-4 backdrop-blur-lg backdrop-filter w-full md:w-[360px]  h-fit;
 }
 
 .flex-center {
@@ -289,4 +289,49 @@
 
 .flex-between {
   @apply flex justify-between items-center;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+}
+
+.animate-fade-in-delay-more {
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+}
+
+.animate-float-in {
+  animation: floatIn 0.8s ease-out 0.6s forwards;
+}
+
+.animate-float-in-delay {
+  animation: floatIn 0.8s ease-out 0.8s forwards;
+}
+
+.scroll-indicator-dot {
+  @apply w-1 h-2 mt-2 bg-gray-400 dark:bg-gray-300 rounded-full;
+  animation: scrollBounce 1.5s infinite;
 }
