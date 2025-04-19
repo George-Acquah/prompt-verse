@@ -6,7 +6,7 @@ const layout = ({ children }: IChildren) => {
   return (
     <main className="app">
       <ButtonScrollToBottom />
-      {<Navbar />}
+      <Navbar />
       {children}
     </main>
   );

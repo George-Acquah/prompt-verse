@@ -1,3 +1,5 @@
+'use client'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +8,7 @@ import {
   DropdownMenuSeparator,
 } from "./ui/dropdown";
 import { Typography } from "./ui/typography";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { IconAdjustmentsHorizontal } from "./ui/icons";
 import useCustomSearchParams from "@/lib/hooks/use-custom-search.hook";
@@ -22,19 +24,50 @@ const feedsOptions: IDropdownArray[] = [
   { label: "Public", value: "public" },
 ];
 
+const sortOptions: IDropdownArray[] = [
+  { label: "Newest", value: "newest" },
+  { label: "Popular", value: "popular" },
+  { label: "A → Z", value: "alphabetical" },
+];
+
 const AppFilters = ({
   filterStyles,
   className,
-  tagsData = []
 }: {
   filterStyles: CSSProperties | undefined;
-    className?: string;
-    tagsData?: string[];
-}) => {
-  const { handleSetParams, modalValue: value, paramValues } =
-    useCustomSearchParams("PRIVACY_STATUS", ['TAG']);
-  
+  className?: string;
+  }) => {
+  const [tagsData, setTagsData] = useState<_ITrendingTags[]>([]);
+  const {
+    handleSetParams,
+    modalValue: value,
+    paramValues,
+  } = useCustomSearchParams("PRIVACY_STATUS", ["TAG", "SORT"]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+        try {
+          const response = await fetch(`/api/tags?limit=${5}`);
+    
+          if (!response.ok) {
+            throw new Error("Fetch failed");
+          }
+    
+          const responseData = (await response.json()) as _ITrendingTags[];
+          setTagsData(responseData);
+        } catch (err) {
+          console.log(err);
+          setTagsData([]);
+        } finally {
+          
+        }
+      };
+    fetchTags();
+    
+  }, [])
+
   const tagValue = paramValues.TAG;
+  const sortValue = paramValues.SORT;
   return (
     <DropdownMenu
       trigger={<IconAdjustmentsHorizontal className="w-6 h-6 cursor-pointer" />}
@@ -53,7 +86,7 @@ const AppFilters = ({
             <DropdownMenuItem
               key={option.value}
               onClick={() => {
-                handleSetParams(true, option.value);
+                handleSetParams(value !== option.value, option.value);
                 onClose();
               }}
               className={`${value === option.value ? "bg-gray-200" : ""}`}
@@ -68,14 +101,35 @@ const AppFilters = ({
           </DropdownMenuLabel>
           {tagsData.map((tag) => (
             <DropdownMenuItem
-              key={tag}
+              key={tag._id}
               onClick={() => {
-                handleSetParams(true, tag, 'TAG');
+                handleSetParams(tagValue !== tag.name, tag.name, "TAG");
                 onClose();
               }}
-              className={`${tagValue === tag ? "bg-gray-200" : ""}`}
+              className={`${tagValue === tag.name ? "bg-gray-200" : ""}`}
             >
-              <Typography variant="span">#{tag}</Typography>
+              <Typography variant="span">#{tag.name}</Typography>
+            </DropdownMenuItem>
+          ))}
+
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>
+            <Typography variant="h5">Sort By</Typography>
+          </DropdownMenuLabel>
+          {sortOptions.map((option) => (
+            <DropdownMenuItem
+              key={option.value}
+              onClick={() => {
+                handleSetParams(
+                  sortValue !== option.value,
+                  option.value,
+                  "SORT"
+                );
+                onClose();
+              }}
+              className={`${sortValue === option.value ? "bg-gray-200" : ""}`}
+            >
+              <Typography variant="span">{option.label}</Typography>
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>

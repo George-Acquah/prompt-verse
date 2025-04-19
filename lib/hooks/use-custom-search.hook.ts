@@ -42,20 +42,20 @@ const useCustomSearchParams = <T extends SearchParamKeys>(
         params.delete(SEARCH_PARAMS[type || entityType]);
       }
 
-      if (valueTypes) {
-        valueTypes.forEach((type) => {
-          params.delete(SEARCH_PARAMS[type]);
-          // if (set) {
-          //   params.set(SEARCH_PARAMS[type], SEARCH_PARAMS[type]);
-          // } else {
-          //   params.delete(SEARCH_PARAMS[type]);
-          // }
-        });
-      }
+      // if (valueTypes) {
+      //   valueTypes.forEach((type) => {
+      //     params.delete(SEARCH_PARAMS[type]);
+      //     // if (set) {
+      //     //   params.set(SEARCH_PARAMS[type], SEARCH_PARAMS[type]);
+      //     // } else {
+      //     //   params.delete(SEARCH_PARAMS[type]);
+      //     // }
+      //   });
+      // }
 
       replace(`${pathname}?${params.toString()}`);
     },
-    [entityType, pathname, replace, searchParams, valueTypes]
+    [entityType, pathname, replace, searchParams]
   );
 
   return { handleSetParams, modalValue, paramValues };

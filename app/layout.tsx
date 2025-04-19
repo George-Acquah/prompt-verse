@@ -5,7 +5,9 @@ import {
 } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "@/styles/globals.css";
-import { ToastHandler } from "@/components/toastHandler";
+// import { ToastHandler } from "@/components/toastHandler";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 
 const fontSans = FontSans({
@@ -23,6 +25,13 @@ export const metadata: Metadata = {
   description: "Ignite Creativity & Explore Infinite Prompts",
 };
 
+const ToastHandler = dynamic(
+  () => import("@/components/toastHandler").then((mod) => mod.ToastHandler),
+  {
+    loading: () => <p>Loading toast...</p>,
+  }
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +41,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontSans.variable} ${fontMono.variable} antialiased`}>
         <Toaster />
-        <ToastHandler />
+        <Suspense>
+          <ToastHandler />
+        </Suspense>
         <div className="main">
           <div className="gradient" />
         </div>

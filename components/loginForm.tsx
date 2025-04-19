@@ -1,20 +1,15 @@
 "use client";
 
 import { login } from "@/app/utils/action";
-import { useSearchParams } from "next/navigation";
 import React, { useActionState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 
 export const LoginForm = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/profile";
-
   const initialState: LoginActionState = {
     data: {
       email: "",
-      password: "",
-      callbackUrl,
+      password: ""
     },
     errors: {},
   };
@@ -61,12 +56,6 @@ export const LoginForm = () => {
             </p>
           )}
         </div>
-        <input
-          required
-          name="callbackUrl"
-          defaultValue={callbackUrl}
-          className="hidden"
-        />
         <button
           type="submit"
           disabled={isPending}

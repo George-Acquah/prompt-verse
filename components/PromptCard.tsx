@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CopyPrompt, DeletePrompt, PromptTag, SharePrompt } from "./promptClients";
+import { CopyPrompt, DeletePrompt, LikePrompt, PromptTag, SharePrompt } from "./promptClients";
 import { auth } from "@/auth";
 
 type Props = {
@@ -14,7 +14,11 @@ const PromptCard = async ({ prompt }: Props) => {
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
         <Link
-          href={prompt.creator._id === session?.user?.id ? `/profile` : `/profile/${prompt.creator._id}?name=${prompt.creator.username}}`}
+          href={
+            prompt.creator._id === session?.user?.id
+              ? `/profile`
+              : `/profile/${prompt.creator._id}?name=${prompt.creator.username}}`
+          }
           className="flex-1 flex justify-start items-center gap-5 cursor-pointer"
         >
           <Image
@@ -42,15 +46,20 @@ const PromptCard = async ({ prompt }: Props) => {
       <p className="my-4 font-satoshi text-sm text-gray-700">{prompt.prompt}</p>
       <PromptTag tag={prompt.tag} />
 
-      {session?.user?.id === prompt.creator._id && (
-        <div className="mt-5 flex-end gap-5 border-t border-gray-200 pt-3">
-          <DeletePrompt prompt_id={prompt._id} />
-          <Link
-            href={`/prompts/${prompt._id}/update-prompt`}
-            className="blue_btn"
-          >
-            Edit
-          </Link>
+      {session?.user && (
+        <div className="flex flex-between mt-5 gap-5 border-t border-gray-200 pt-3">
+          <LikePrompt prompt_id={prompt._id} likes={prompt.likes} liked={prompt.likedBy.includes(session?.user?.id || '')} />
+          {session?.user?.id === prompt.creator._id && (
+            <div className="flex-end gap-5">
+              <DeletePrompt prompt_id={prompt._id} />
+              <Link
+                href={`/prompts/${prompt._id}/update-prompt`}
+                className="blue_btn"
+              >
+                Edit
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </div>

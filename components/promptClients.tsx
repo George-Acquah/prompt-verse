@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { IconShare } from "./ui/icons";
+import { IconHeart, IconShare } from "./ui/icons";
 import useCustomSearchParams from "@/lib/hooks/use-custom-search.hook";
-import { deletePrompt } from "@/app/utils/action";
+import { deletePrompt, likePrompt } from "@/app/utils/action";
+import { cn } from "@/lib/utils";
+import { UseErrorToast } from "@/lib/toast";
 
 export const SharePrompt = ({ prompt }: { prompt: string }) => {
   const handleShareClick = () => {
@@ -84,6 +86,53 @@ export const DeletePrompt = ({ prompt_id }: { prompt_id: string }) => {
       >
         {isPending ? "Deleting..." : "Delete"}
       </button>
+    </form>
+  );
+};
+
+export const LikePrompt = ({
+  prompt_id,
+  liked,
+  likes,
+}: { prompt_id: string } & ILikePrompt) => {
+  const initialState: LikePromptActionState = {
+    data: {
+      liked,
+      likes,
+    },
+  };
+  const [state, action, isPending] = useActionState(likePrompt, initialState);
+  const resolvedLiked = Boolean(state?.data?.liked);
+  
+  useEffect(() => {
+    if (state.errors?.general) {
+      UseErrorToast(state.errors?.general[0] || "");
+    }
+  }, [state.errors?.general]);
+  return (
+    <form action={action} className="flex items-center gap-1">
+      <input
+        type="text"
+        name="id"
+        defaultValue={prompt_id}
+        className="hidden"
+      />
+      <Button
+        type="submit"
+        variant="ghost"
+        size="sm"
+        className="p-1 h-auto"
+        disabled={isPending}
+      >
+        <IconHeart
+          filled={resolvedLiked}
+          className={cn(
+            "transition-colors",
+            resolvedLiked ? "text-red-500" : "text-gray-600"
+          )}
+        />
+      </Button>
+      <span className="text-sm text-gray-600">{Number(state?.data?.likes)}</span>
     </form>
   );
 };

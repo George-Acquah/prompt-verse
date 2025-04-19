@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Form from "@/components/Form";
 import { FormDataType, PromptActionState } from "@/schema/prompt.schema";
 import { createPrompt } from "@/app/utils/action";
+import Loading from "@/components/loading";
 
 const CreatePrompt = async () => {
   const initialState: PromptActionState = {
@@ -24,11 +25,13 @@ const CreatePrompt = async () => {
         platform.
       </p>
 
-      <Form<FormDataType>
-        type="create"
-        initialState={initialState}
-        action={createPrompt}
-      />
+      <Suspense fallback={<Loading />}>
+        <Form<FormDataType>
+          type="create"
+          initialState={initialState}
+          action={createPrompt}
+        />
+      </Suspense>
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
-export const UseSuccessToast = (name: string) => {
-  toast.error(`You've successfully logged in as ${name}`, {
+export const UseSuccessToast = (message: string) => {
+  toast.error(message, {
     style: {
       borderRadius: "10px",
       background: "#272",
@@ -19,8 +19,8 @@ export const UseSuccessToast = (name: string) => {
   });
 };
 
-export const UseErrorToast = (name: string) => {
-  toast.error(`You've successfully logged in as ${name}`, {
+export const UseErrorToast = (message: string) => {
+  toast.error(message, {
     style: {
       borderRadius: "10px",
       background: "#722",

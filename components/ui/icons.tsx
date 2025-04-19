@@ -550,6 +550,21 @@ function IconAdjustmentsHorizontal({
   );
 }
 
+function IconHeart({ className, filled = false, ...props }: React.ComponentProps<'svg'> & { filled?: boolean }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      fill={filled ? "currentColor" : "none"}
+      stroke="currentColor"
+      strokeWidth="8"
+      className={cn('h-4 w-4', className)}
+      {...props}
+    >
+      <path d="M128 216S28 160 28 92a52 52 0 0 1 100-20 52 52 0 0 1 100 20c0 68-100 124-100 124z" />
+    </svg>
+  );
+}
 
 export {
   IconEdit,
@@ -583,4 +598,5 @@ export {
   IconFilter,
   IconInfo,
   IconAdjustmentsHorizontal,
+  IconHeart,
 };

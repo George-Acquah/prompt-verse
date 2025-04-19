@@ -27,7 +27,7 @@ export function PlaceholdersAndVanishInput({
   const isMobile = useIsMobile();
   const filterStyles = getDropdownStyles(
     "0rem",
-    "100%",
+    "2rem",
     "-1rem",
     "2rem",
     isMobile
@@ -42,6 +42,7 @@ export function PlaceholdersAndVanishInput({
     return () => clearInterval(interval); // Clean up interval on component unmount
   }, [placeholders]);
 
+
   // Simple rendering of placeholder
   const renderPlaceholders = () => (
     <div className="absolute inset-0 flex items-center rounded-full pointer-events-none">
@@ -49,7 +50,7 @@ export function PlaceholdersAndVanishInput({
         <p
           className={cn(
             "dark:text-zinc-500 text-sm sm:text-base font-normal text-neutral-500 pl-4 sm:pl-12 text-left w-[calc(100%-2rem)] truncate transition-opacity duration-300 ease-linear",
-            isPending ? "opacity-0" : "opacity-100" // Placeholder animation
+            isPending ? "opacity-0" : "opacity-100"
           )}
         >
           {placeholders[currentPlaceholder]}
@@ -88,7 +89,7 @@ export function PlaceholdersAndVanishInput({
         )}
       />
 
-      <div className="absolute left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition duration-200 flex items-center justify-center  border-r border-r-neutral-300 dark:border-neutral-600">
+      <div className="absolute z-50 left-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-transparent dark:transparent transition duration-200 flex items-center justify-center  border-r border-r-neutral-300 dark:border-neutral-600">
         <AppFilters filterStyles={filterStyles} />
       </div>
       <button

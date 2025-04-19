@@ -12,14 +12,14 @@ const PromptList = dynamic(() => import("@/components/promptList"), {
 });
 
 const Feed = async ({ searchParam  }: { searchParam: _ISearchQuery }) => {
-  const {size = 10, page = 1, query = '', tag} = searchParam;
+  const {size = 10, page = 1, query = '', tag, sort} = searchParam;
   return (
     <section className="feed">
       <div className="flex justify-start items-center gap-3 w-full">
         <Search entityType="QUERY" />
       </div>
       <Suspense fallback={<Loading />}>
-        <PromptList size={size} page={page} query={query} tag={ tag } />
+        <PromptList size={size} page={page} query={query} tag={tag} sort={ sort} />
       </Suspense>
     </section>
   );

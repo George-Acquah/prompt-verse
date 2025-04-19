@@ -44,7 +44,19 @@ type FormProps = {
 interface IPrompt extends IPost {
   _id: string;
   creator: ICreator;
+  likes: number;
+  likedBy: string[];
 }
+
+interface _ITrendingTags {
+  _id: string;
+  name: string;
+}
+
+  interface ILikePrompt {
+    likes: number;
+    liked: boolean;
+  }
 
 interface ITag {
   name: string;
@@ -68,6 +80,7 @@ interface _ISearchQuery {
   size: number;
   page: number;
   tag?: string;
+  sort?: PromptSortType;
 }
 
 interface _ISearchParams {
@@ -77,6 +90,7 @@ interface _ISearchParams {
   TOASTER_MSG: string;
   QUERY: string;
   TAG: string;
+  SORT: string;
   PRIVACY_STATUS: string;
 }
 
@@ -120,4 +134,16 @@ type FormActionState<T extends Record<string, unknown> | null> = {
 type ToasterType = 'error' | 'success';
 type PromptSortType = "newest" | "popular" | "alphabetical";
 
+type SortDirection = 1 | -1;
+type PaginationOptions<T> = {
+  query?: string;
+  filter?: Partial<T>;
+  size?: number;
+  page?: number;
+  userId?: string | null;
+  sortBy?: Record<string, SortDirection>;
+  populate?: string | string[];
+};
+
 type LoginActionState = FormActionState<ILoginValues>;
+type LikePromptActionState = FormActionState<ILikePrompt>;

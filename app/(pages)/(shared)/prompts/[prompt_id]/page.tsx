@@ -3,7 +3,8 @@ import { auth } from "@/auth";
 import { CopyPrompt, PromptTag, SharePrompt } from "@/components/promptClients";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { Suspense } from "react";
+// import { notFound } from "next/navigation";
 
 type Params = {
   params: Promise<{
@@ -17,7 +18,8 @@ const PromptPage = async ({ params }: Params) => {
   const session = await auth();
 
   if (!prompt) {
-    notFound();
+    // notFound();
+    return;
   }
 
   return (
@@ -58,7 +60,9 @@ const PromptPage = async ({ params }: Params) => {
       </div>
 
       {/* Prompt tag */}
-      <PromptTag tag={prompt.tag} />
+      <Suspense fallback={<>tags...</>}>
+        <PromptTag tag={prompt.tag} />
+      </Suspense>
 
       {/* If the user is the creator, show edit and delete options */}
       {session?.user?.id === prompt.creator._id && (
