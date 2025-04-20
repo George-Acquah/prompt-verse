@@ -4,6 +4,7 @@ import { login } from "@/app/utils/action";
 import React, { useActionState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
+import { IconGitHub } from "./ui/icons";
 
 export const LoginForm = () => {
   const initialState: LoginActionState = {
@@ -19,7 +20,7 @@ export const LoginForm = () => {
     <div>
       <form
         action={formAction}
-        className="mt-5 max-w-[24rem] w-[24rem] flex flex-col glassmorphism "
+        className="mt-5 max-w-[24rem] w-[21rem] flex flex-col glassmorphism "
       >
         {state.errors?.general && (
           <p className="text-center font-normal bg-red-300 py-2 mb-4 mt-2 rounded-md">
@@ -89,13 +90,14 @@ export const LoginForm = () => {
           onClick={() => signIn("github")}
           role="button"
         >
-          <Image
+          {/* <Image
             className="pr-2"
             src="/assets/images/social-github-svgrepo-com.svg"
             alt="GitHub"
             width={30}
             height={30}
-          />
+          /> */}
+          <IconGitHub className="pr-2 w-6 h-6" />
           <span className="ml-6">Continue with GitHub</span>
         </div>
       </form>

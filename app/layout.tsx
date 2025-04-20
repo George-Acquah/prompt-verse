@@ -5,10 +5,11 @@ import {
 } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "@/styles/globals.css";
-// import { ToastHandler } from "@/components/toastHandler";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/footer";
+import PWARegistration from "@/components/registerPwa";
+import Providers from "./providers";
 
 
 const fontSans = FontSans({
@@ -22,14 +23,30 @@ const fontMono = FontMono({
 });
 
 export const metadata: Metadata = {
-  title: "PromptVerse",
-  description: "Ignite Creativity & Explore Infinite Prompts",
+  title: {
+    template: "%s | CraftPrompt",
+    default: "CraftPrompt",
+  },
+  description: "Explore, create and share your favourite AI prompts.",
+  manifest: "/manifest.json",
+  keywords: ["nextjs", "next15", "pwa", "prompt"],
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
+  authors: [
+    {
+      name: "George Acquah",
+      url: "https://www.linkedin.com/in/george-acquah-993788248",
+    },
+    {
+      name: "George Acquah",
+      url: "https://github.com/George-Acquah",
+    },
+  ],
 };
 
 const ToastHandler = dynamic(
   () => import("@/components/toastHandler").then((mod) => mod.ToastHandler),
   {
-    loading: () => <p>Loading toast...</p>,
+    loading: () => null,
   }
 );
 
@@ -41,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontSans.variable} ${fontMono.variable} antialiased`}>
+        <Providers attribute="class" enableSystem disableTransitionOnChange>
         <Toaster />
         <Suspense>
           <ToastHandler />
@@ -50,6 +68,8 @@ export default function RootLayout({
         </div>
         {children}
         <Footer />
+        </Providers>
+        <PWARegistration />
       </body>
     </html>
   );

@@ -75,6 +75,11 @@ interface IApiResponse<T> {
   status: number;
 }
 
+interface _ITheme {
+  name: string;
+  icon: React.JSX.Element;
+}
+
 interface _ISearchQuery {
   query: string;
   size: number;
