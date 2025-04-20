@@ -8,6 +8,7 @@ import { signOutHelper } from "@/app/utils/action";
 import useNavbarScroll from "@/lib/hooks/use-navbar-scroll";
 import Search from "./search";
 import useIsMobile from "@/lib/hooks/use-mobile-view.hook";
+import { useState } from "react";
 
 interface _INavbarClient {
   isCreatePromptPage: boolean;
@@ -16,20 +17,24 @@ interface _INavbarClient {
 }
 
 const NavbarClient = ({ user, isCreatePromptPage, tags }: _INavbarClient) => {
-  const isFixed = useNavbarScroll();
   const isMobile = useIsMobile();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const isFixed = useNavbarScroll(!isMobile || !isSheetOpen);
 
   return (
     <nav
       className={`px-6 flex-between w-full mb-16 pt-3 transition-all duration-300 ${
         isFixed
-          ? "fixed top-0 left-0 right-0 z-50 py-3 md:py-6 px-4 bg-white/70 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
+          ? "fixed top-0 left-0 right-0 z-50 py-3 md:py-4 px-4 bg-white/70 sm:px-12 lg:px-32 xl:px-60 2xl:px-88 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
           : ""
       }`}
     >
-      <Link href="/" className={`${isFixed ? 'hidden sm:flex' : 'flex flex-center'} gap-2 `}>
+      <Link
+        href="/"
+        className={`${isFixed ? "hidden sm:flex" : "flex flex-center"} gap-2 `}
+      >
         <Image
-          src="/assets/images/logo.svg"
+          src="/icon0.svg"
           alt="PrompVerse Logo"
           width={30}
           height={30}
@@ -75,15 +80,24 @@ const NavbarClient = ({ user, isCreatePromptPage, tags }: _INavbarClient) => {
 
       {/* Mobile Navigation */}
       {isFixed ? (
-        isMobile && <Search entityType="QUERY" tags={tags}/>
+        isMobile && <Search entityType="QUERY" tags={tags} />
       ) : (
         <div className="sm:hidden flex relative">
-          {user ? (
-            <NavbarDropdown userImage={user.image || null} />
+          {isFixed ? (
+            isMobile && <Search entityType="QUERY" tags={tags} />
           ) : (
-            <Link href="/auth/login" className="black_btn">
-              Sign In
-            </Link>
+            <div className="sm:hidden flex relative">
+              {user ? (
+                <NavbarDropdown
+                  user={user || null}
+                  onSheetStateChange={setIsSheetOpen}
+                />
+              ) : (
+                <Link href="/auth/login" className="black_btn">
+                  Sign In
+                </Link>
+              )}
+            </div>
           )}
         </div>
       )}

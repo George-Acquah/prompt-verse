@@ -1,7 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CopyPrompt, DeletePrompt, LikePrompt, PromptTag, SharePrompt } from "./promptClients";
+import {
+  CopyPrompt,
+  DeletePrompt,
+  LikePrompt,
+  PromptTag,
+  SharePrompt,
+} from "./promptClients";
 import { auth } from "@/auth";
 
 type Props = {
@@ -30,10 +36,10 @@ const PromptCard = async ({ prompt }: Props) => {
           />
 
           <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-gray-900`">
+            <h3 className="font-satoshi font-semibold text-gray-900 dark:text-gray-100">
               {prompt.creator.username}
             </h3>
-            <p className="font-inter text-sm text-gray-500">
+            <p className="font-inter text-sm text-gray-500 dark:text-gray-400">
               {prompt.creator.email}
             </p>
           </div>
@@ -43,12 +49,18 @@ const PromptCard = async ({ prompt }: Props) => {
           <SharePrompt prompt={prompt.prompt} />
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">{prompt.prompt}</p>
+      <p className="my-4 font-satoshi text-sm text-gray-700 dark:text-gray-300">
+        {prompt.prompt}
+      </p>
       <PromptTag tag={prompt.tag} />
 
       {session?.user && (
-        <div className="flex flex-between mt-5 gap-5 border-t border-gray-200 pt-3">
-          <LikePrompt prompt_id={prompt._id} likes={prompt.likes} liked={prompt.likedBy.includes(session?.user?.id || '')} />
+        <div className="flex flex-between mt-5 gap-5 border-t border-gray-200 dark:border-gray-700 pt-3">
+          <LikePrompt
+            prompt_id={prompt._id}
+            likes={prompt.likes}
+            liked={prompt.likedBy.includes(session?.user?.id || "")}
+          />
           {session?.user?.id === prompt.creator._id && (
             <div className="flex-end gap-5">
               <DeletePrompt prompt_id={prompt._id} />
