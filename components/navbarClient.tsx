@@ -23,7 +23,7 @@ const NavbarClient = ({ user, isCreatePromptPage, tags }: _INavbarClient) => {
 
   return (
     <nav
-      className={`px-6 flex-between w-full mb-16 pt-3 transition-all duration-300 ${
+      className={`px-2 sm:px-6 flex-between w-full mb-8 sm:mb-16 pt-3 transition-all duration-300 ${
         isFixed
           ? "fixed top-0 left-0 right-0 z-50 py-3 md:py-4 px-4 bg-white/70 sm:px-12 xl:px-16 2xl:px-40 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
           : ""

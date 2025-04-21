@@ -90,83 +90,6 @@ html {
   mix-blend-mode: screen;
 }
 
-/* .main.elegant-night {
-  background: radial-gradient(
-    ellipse at bottom,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(8, 8, 8, 0.95) 100%
-  );
-}
-
-.main.elegant-night:before {
-  background: none;
-}
-
-.main.elegant-night:after {
-  background-image: url("https://via.placeholder.com/1200x800?text=Elegant+Night+Sky+Image");
-}
-
-
-.main.dramatic-twilight {
-  background: radial-gradient(
-    ellipse at bottom,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(38, 38, 38, 0.9) 100%
-  );
-}
-
-.main.dramatic-twilight:before {
-  background: none;
-}
-
-.main.dramatic-twilight:after {
-  background-image: url("https://via.placeholder.com/1200x800?text=Dramatic+Twilight+Image");
-}
-
-.main.mystical-forest {
-  background: radial-gradient(
-    ellipse at bottom,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(14, 26, 18, 0.9) 100%
-  );
-}
-
-.main.mystical-forest:before {
-  background: none;
-}
-
-.main.mystical-forest:after {
-  background-image: url("https://via.placeholder.com/1200x800?text=Mystical+Forest+Image");
-}
-
-.main.golden-hour {
-  background: radial-gradient(
-    ellipse at bottom,
-    rgba(241, 177, 103, 0.9) 0%,
-    rgba(204, 122, 45, 0.8) 100%
-  );
-}
-
-.main.golden-hour:before {
-  background: none;
-}
-
-.main.golden-hour:after {
-  background-image: url("https://via.placeholder.com/1200x800?text=Golden+Hour+Image");
-} */
-
-
-
-
-@media screen and (max-width: 640px) {
-  .main {
-    padding: 0;
-  }
-}
-
-/* Tailwind Styles */
-
-
 
 .app {
   @apply relative flex justify-center items-center flex-col max-w-7xl mx-auto ;
@@ -353,4 +276,28 @@ html {
 .scroll-indicator-dot {
   @apply w-1 h-2 mt-2 bg-gray-400 dark:bg-gray-300 rounded-full;
   animation: scrollBounce 1.5s infinite;
+}
+
+/* Add these styles */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@supports (scroll-snap-type: x mandatory) {
+  .snap-x {
+    scroll-snap-type: x mandatory;
+  }
+  
+  .snap-start {
+    scroll-snap-align: start;
+  }
+  
+  .snap-stop {
+    scroll-snap-stop: always;
+  }
 }

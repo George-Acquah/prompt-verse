@@ -282,6 +282,7 @@ export async function getPromptsByCreator(
 
 export async function getBookmarks(
   query?: string,
+  tag?: string,
   size = 10,
   page = 1
 ): Promise<IApiResponse<IPrompt[]>> {
