@@ -3,6 +3,7 @@ import PromptCard from "./PromptCard";
 import { getPromptsByCreator } from "@/app/utils/action";
 import { Typography } from "./ui/typography";
 import dynamic from "next/dynamic";
+import EmptyState from "./Empty";
 
 interface ProfileProps {
   searchParam: _ISearchQuery;
@@ -22,22 +23,28 @@ const Profile = async ({ id, searchParam }: ProfileProps) => {
     page
   );
 
-  if (!prompts) {
-    return;
-  }
-
   return (
     <div className="">
       <Suspense>
         <Search entityType="QUERY" />
       </Suspense>
-      <div className="mt-16 prompt_layout">
-        {prompts.length > 0 ? (
+      <div className="prompt_layout mt-4">
+        {prompts && prompts.length > 0 ? (
           prompts.map((prompt) => (
             <PromptCard key={prompt._id} prompt={prompt} />
           ))
         ) : (
-          <p>No Prompts found</p>
+          // <div className="text-center py-12">
+          //   <Typography variant="h4">No prompts found</Typography>
+          //   <Typography variant="p" className="mt-2">
+          //     Start by creating your first prompt above.
+          //   </Typography>
+          //   </div>
+             <EmptyState
+            message="No prompts found"
+            actionLabel="Create Prompt"
+            actionHref="/create-prompt"
+          />
         )}
       </div>
     </div>

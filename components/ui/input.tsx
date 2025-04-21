@@ -17,9 +17,9 @@ const Input = ({
   // const LinkIcon = icon ? iconMap[icon] : undefined;
   const err_bool = Boolean(errors);
   return (
-    <div>
+    <div className="mt-2">
       <label htmlFor={id}>
-        <span className="font-semibold text-base text-gray-700">{label}</span>
+        <span className="font-semibold text-base text-gray-700 dark:text-gray-300">{label}</span>
         {tooltip && <IconInfo className="text-blue-400" />}
       </label>
       {input_type === "radio" ? (
@@ -31,7 +31,7 @@ const Input = ({
                   key={option}
                   htmlFor={option}
                   className={`cursor-pointer py-2 px-4 rounded-lg border-2 w-22 text-center ${
-                    value === option ? "radio_button" : "border-gray-300"
+                    value === option ? "radio_button " : "border-gray-300 dark:border-gray-700"
                   }`}
                 >
                   <input
@@ -43,7 +43,7 @@ const Input = ({
                     onChange={onChange}
                     className="hidden"
                   />
-                  <span className="font-semibold text-base text-gray-700 capitalize">
+                  <span className="font-semibold text-base text-gray-700 dark:text-gray-200 capitalize">
                     {option}
                   </span>
                 </label>
