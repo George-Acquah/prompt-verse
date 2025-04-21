@@ -7,6 +7,7 @@ const SEARCH_PARAMS: _ISearchParams = {
   TOASTER_MSG: "toaster-message",
   PRIVACY_STATUS: "private-status",
   TAG: "tag",
+  TAB: "tab"
 };
 
 export const SEARCH_COOKIES_KEYS = {

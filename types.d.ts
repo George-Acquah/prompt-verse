@@ -75,6 +75,12 @@ interface IApiResponse<T> {
   status: number;
 }
 
+interface _IProfileTabList {
+  value: string;
+  label: string;
+  icon: React.JSX.Element;
+}
+
 interface _ITheme {
   name: string;
   icon: React.JSX.Element;
@@ -95,6 +101,7 @@ interface _ISearchParams {
   TOASTER_MSG: string;
   QUERY: string;
   TAG: string;
+  TAB: string;
   SORT: string;
   PRIVACY_STATUS: string;
 }
@@ -137,6 +144,7 @@ type FormActionState<T extends Record<string, unknown> | null> = {
 };
 
 type ToasterType = 'error' | 'success';
+type ProfileTab = "prompts" | "bookmarks" | "liked" | "stats";
 type PromptSortType = "newest" | "popular" | "alphabetical";
 
 type SortDirection = 1 | -1;

@@ -16,7 +16,7 @@ const PersonalisedProfilePage = async ({ searchParams }: Params) => {
         &apos;s exceptional prompts and be inspired by the power of their
         imagination
       </p>
-      <Profile searchParam={searchParam} id={user_id} />
+      <Profile tab="prompts" searchParam={searchParam} id={user_id} />
     </section>
   );
 };

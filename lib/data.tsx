@@ -1,3 +1,5 @@
+import { IconFiles, IconHeart, IconOpenAI, IconSparkles } from "@/components/ui/icons";
+
 export const themes = [
   {
     name: "light",
@@ -46,4 +48,25 @@ export const themes = [
       </svg>
     ),
   },
+];
+
+export const profileTabs: _IProfileTabList[] = [
+  {
+    value: "prompts",
+    label: "My Prompts",
+    icon: <IconFiles className="h-4 w-4" />
+  },
+  {
+    value: "bookmarks",
+    label: "Bookmarks",
+    icon: <IconSparkles className="h-4 w-4" />
+  }, {
+    value: "liked",
+    label: "Liked",
+    icon: <IconHeart className="h-4 w-4" />
+  }, {
+    value: "stats",
+    label: "Stats",
+    icon: <IconOpenAI className="h-4 w-4" />
+  }
 ];

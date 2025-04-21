@@ -12,9 +12,10 @@ import { auth } from "@/auth";
 
 type Props = {
   prompt: IPrompt;
+  showActions?: boolean;
 };
 
-const PromptCard = async ({ prompt }: Props) => {
+const PromptCard = async ({ prompt, showActions = true }: Props) => {
   const session = await auth();
   return (
     <div className="prompt_card group">
@@ -88,7 +89,7 @@ const PromptCard = async ({ prompt }: Props) => {
             likes={prompt.likes}
             liked={prompt.likedBy.includes(session?.user?.id || "")}
           />
-          {session?.user?.id === prompt.creator._id && (
+          {session?.user?.id === prompt.creator._id && showActions && (
             <div className="flex-end gap-5">
               <DeletePrompt prompt_id={prompt._id} />
               <Link
