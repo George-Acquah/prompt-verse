@@ -1,6 +1,11 @@
 import { auth } from "@/auth";
 import Profile from "@/components/Profile";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "My Profile",
+  description: "View and manage your prompt contributions.",
+};
 type Params = { searchParams: Promise<_ISearchQuery> };
 
 const ProfilePage = async ({ searchParams }: Params) => {

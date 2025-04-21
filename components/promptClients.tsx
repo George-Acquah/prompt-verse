@@ -1,9 +1,8 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import Image from "next/image";
 import { Button } from "./ui/button";
-import { IconHeart, IconShare } from "./ui/icons";
+import { IconCheck, IconCopy, IconHeart, IconShare } from "./ui/icons";
 import useCustomSearchParams from "@/lib/hooks/use-custom-search.hook";
 import { deletePrompt, likePrompt } from "@/app/utils/action";
 import { cn } from "@/lib/utils";
@@ -23,9 +22,12 @@ export const SharePrompt = ({ prompt }: { prompt: string }) => {
       <Button
         variant="ghost"
         className="h-6 w-6 p-0 hover:bg-background"
-        onClick={handleShareClick}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleShareClick();
+        }}
       >
-        <IconShare />
+        <IconShare className="cursor-pointer" />
         <span className="sr-only">Share</span>
       </Button>
     </div>
@@ -42,18 +44,26 @@ export const CopyPrompt = ({ prompt }: { prompt: string }) => {
   };
   return (
     <div className="flex items-center gap-x-1">
-      <div className="copy_btn" onClick={handleCopy}>
-        <Image
-          src={
-            copied === prompt
-              ? "/assets/icons/tick.svg"
-              : "/assets/icons/copy.svg"
-          }
-          alt="copy_icon"
-          width={12}
-          height={12}
-        />
-      </div>
+      <Button
+        variant="ghost"
+        className="h-6 w-6 p-0 hover:bg-background transition-all duration-200"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleCopy();
+        }}
+      >
+        {copied === prompt ? (
+          <>
+            <IconCheck className="text-green-600"/>
+            <span className="sr-only">Copied</span>
+          </>
+        ) : (
+          <>
+            <IconCopy className="cursor-pointer"/>
+            <span className="sr-only">Copy</span>
+          </>
+        )}
+      </Button>
     </div>
   );
 };
@@ -62,10 +72,13 @@ export const PromptTag = ({ tag }: { tag: string }) => {
   const { handleSetParams } = useCustomSearchParams("TAG");
 
   return (
-    <div className="mt-2">
+    <div className="">
       <p
-        className="text-sm text-blue-500 cursor-pointer hover:underline"
-        onClick={() => handleSetParams(true, tag)}
+        className="text-sm text-blue-500 cursor-pointer hover:underline w-fit"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSetParams(true, tag);
+        }}
       >
         #{tag}
       </p>
@@ -85,7 +98,7 @@ export const DeletePrompt = ({ prompt_id }: { prompt_id: string }) => {
         className="hidden"
       />
       <button
-        className="font-inter text-sm orange_gradient cursor-pointer"
+        className="font-inter text-sm text-red-500 dark:text-red-600 cursor-pointer"
       >
         {isPending ? "Deleting..." : "Delete"}
       </button>
@@ -124,7 +137,7 @@ export const LikePrompt = ({
         type="submit"
         variant="ghost"
         size="sm"
-        className="p-1 h-auto"
+        className="p-1 h-auto cursor-pointer"
         disabled={isPending}
       >
         <IconHeart

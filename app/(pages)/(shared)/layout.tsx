@@ -4,7 +4,7 @@ import React from 'react'
 
 const layout = ({ children }: IChildren) => {
   return (
-    <main className="app">
+    <main className="app px-4 mx-auto max-w-7xl">
       <ButtonScrollToBottom />
       <Navbar />
       {children}

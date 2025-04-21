@@ -23,7 +23,6 @@ const PromptPage = async ({ params }: Params) => {
 
   return (
     <div className="prompt_page mx-auto max-w-4xl p-6">
-      {/* Header with creator's details */}
       <div className="flex flex-col items-start gap-4 border-b border-gray-300 pb-4 mb-6">
         <div className="flex items-center gap-4">
           <Link
@@ -46,24 +45,20 @@ const PromptPage = async ({ params }: Params) => {
           </Link>
         </div>
 
-        {/* Copy and share buttons */}
         <div className="flex items-center gap-4 mt-4">
           <CopyPrompt prompt={prompt.prompt} />
           <SharePrompt prompt={prompt.prompt} />
         </div>
       </div>
 
-      {/* Prompt content */}
       <div className="prompt_content mb-8">
         <p className="text-lg text-gray-800 font-medium">{prompt.prompt}</p>
       </div>
 
-      {/* Prompt tag */}
       <Suspense fallback={<>tags...</>}>
         <PromptTag tag={prompt.tag} />
       </Suspense>
 
-      {/* If the user is the creator, show edit and delete options */}
       {session?.user?.id === prompt.creator._id && (
         <div className="mt-6 flex gap-6 border-t border-gray-300 pt-4">
           <Link
@@ -74,7 +69,6 @@ const PromptPage = async ({ params }: Params) => {
           </Link>
           <p
             className="text-red-500 font-semibold cursor-pointer"
-            // onClick={handleDelete}
           >
             Delete
           </p>
