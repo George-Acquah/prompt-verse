@@ -8,7 +8,7 @@ const Footer = () => {
           {/* Brand column */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              PromptVerse
+              CraftPrompt
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
               The open-source AI prompting platform for creators.
@@ -149,7 +149,7 @@ const Footer = () => {
         <div className="pt-8 mt-12 border-t border-gray-200 dark:border-gray-800">
           <div className="flex flex-col items-center justify-between md:flex-row">
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              © {currentYear} PromptVerse. All rights reserved.
+              © {currentYear} CraftPrompt. All rights reserved.
             </p>
             <div className="flex mt-4 space-x-6 md:mt-0">
               <a

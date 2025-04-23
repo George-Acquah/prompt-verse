@@ -1,7 +1,13 @@
 import Profile from "@/components/Profile";
+import { Metadata } from "next";
 
 type Params = {
   searchParams: Promise<_ISearchQuery & { user_id: string; name: string }>;
+};
+
+export const metadata: Metadata = {
+  title: "Profile",
+  description: "View prompts of other users.",
 };
 
 const PersonalisedProfilePage = async ({ searchParams }: Params) => {

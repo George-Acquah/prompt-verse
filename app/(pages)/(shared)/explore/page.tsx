@@ -3,6 +3,12 @@ import { IconArrowDown } from "@/components/ui/icons";
 import { Suspense } from "react";
 import Link from "next/link";
 import { TrendingCategories } from "@/components/trendingCategories";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Explore",
+  description: "View a list of prompts created by you and other creators.",
+};
 
 type Params = { searchParams: Promise<_ISearchQuery> };
 

@@ -46,7 +46,6 @@ const Profile = async ({ id, searchParam, tab }: ProfileProps) => {
       emptyMessage = "You haven't liked any prompts yet";
       break;
     case "stats":
-      // Stats implementation would go here
       return (
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
           <Typography variant="h3" className="font-semibold mb-4">
@@ -73,7 +72,7 @@ const Profile = async ({ id, searchParam, tab }: ProfileProps) => {
         </div>
 
         {tab === "prompts" && (
-          <Link href="/prompts/create" passHref>
+          <Link href="/prompts/create-prompt" passHref>
             <Button className="gap-2">
               <IconPlus className="h-4 w-4" />
               Create New Prompt
@@ -108,7 +107,7 @@ const Profile = async ({ id, searchParam, tab }: ProfileProps) => {
                   } them`
             }
             actionLabel={tab === "prompts" ? "Create Prompt" : "Browse Prompts"}
-            actionHref={tab === "prompts" ? "/create-prompt" : "/explore"}
+            actionHref={tab === "prompts" ? "/prompts/create-prompt" : "/explore"}
           />
         )}
       </div>
