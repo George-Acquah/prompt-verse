@@ -137,6 +137,37 @@ function IconGitHub({ className, ...props }: React.ComponentProps<'svg'>) {
   )
 }
 
+function IconGoogle({ className, ...props }: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      className={`h-4 w-4 ${className}`}
+      {...props}
+    >
+      <title>Google</title>
+      <path
+        d="M21.35 11.1H12v2.8h5.35c-.23 1.24-.93 2.29-1.98 3.01v2.5h3.19c1.87-1.72 2.79-4.26 2.79-7.27 0-.64-.06-1.26-.17-1.84z"
+        fill="#4285F4"
+      />
+      <path
+        d="M12 22c2.43 0 4.47-.8 5.96-2.18l-3.19-2.5c-.89.6-2.03.96-3.34.96-2.56 0-4.73-1.73-5.5-4.06H2.62v2.56C4.1 19.98 7.76 22 12 22z"
+        fill="#34A853"
+      />
+      <path
+        d="M6.5 13.32C6.26 12.66 6.12 11.94 6.12 11.2c0-.74.14-1.46.38-2.12V6.52H2.62A10.007 10.007 0 002 11.2c0 1.62.39 3.15 1.08 4.48l3.42-2.36z"
+        fill="#FBBC05"
+      />
+      <path
+        d="M12 4.44c1.32 0 2.5.45 3.43 1.34l2.57-2.57C16.47 1.69 14.43.8 12 .8 7.76.8 4.1 2.82 2.62 6.52l3.42 2.56C7.27 6.17 9.44 4.44 12 4.44z"
+        fill="#EA4335"
+      />
+    </svg>
+  );
+}
+
 function IconSeparator({ className, ...props }: React.ComponentProps<'svg'>) {
   return (
     <svg
@@ -669,4 +700,5 @@ export {
   IconHeart,
   IconChevronUp,
   IconChevronDown,
+  IconGoogle
 };

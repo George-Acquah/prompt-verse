@@ -322,7 +322,7 @@ const NavbarDropdown: React.FC<NavbarDropdownProps> = ({
             </div>
 
             {/* Sign Out Button */}
-            <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800/50">
+            <div className="mt-auto py-4 border-t border-gray-200 dark:border-gray-800/50">
               <button
                 type="button"
                 onClick={async () => {

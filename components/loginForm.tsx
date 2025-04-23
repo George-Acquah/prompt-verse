@@ -2,11 +2,10 @@
 
 import { login } from "@/app/utils/action";
 import React, { useActionState } from "react";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { IconGitHub } from "./ui/icons";
+import { IconGitHub, IconGoogle } from "./ui/icons";
 
-export const LoginForm = () => {
+export const LoginForm = ({ type = 'login' }: { type?: 'login' | 'signup'}) => {
   const initialState: LoginActionState = {
     data: {
       email: "",
@@ -14,6 +13,8 @@ export const LoginForm = () => {
     },
     errors: {},
   };
+
+  const label = type === 'login' ? 'Sign in' : 'Sign Up';
 
   const [state, formAction, isPending] = useActionState(login, initialState);
   return (
@@ -63,43 +64,34 @@ export const LoginForm = () => {
           className="px-7 py-4 mb-3 blue_btn text-lg"
           style={{ backgroundColor: isPending ? "#ccc" : undefined }}
         >
-          {isPending ? "loading..." : "Sign In"}
+          {isPending ? "loading..." : label}
         </button>
 
-        <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-          <p className="text-center font-semibold mx-4 mb-0">OR</p>
-        </div>
+        {type === "login" && (
+          <>
+            <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+              <p className="text-center font-semibold mx-4 mb-0">OR</p>
+            </div>
 
-        <div
-          className="px-7 py-2 mb-3 outline_btn text-lg"
-          onClick={() => signIn("google")}
-          role="button"
-        >
-          <Image
-            className="pr-2"
-            src="/assets/images/google-svgrepo-com.svg"
-            alt="Google"
-            width={30}
-            height={30}
-          />
-          <span className="ml-6">Continue with Google</span>
-        </div>
+            <div
+              className="px-7 py-2 mb-3 outline_btn text-lg"
+              onClick={() => signIn("google")}
+              role="button"
+            >
+              <IconGoogle className=" w-8 h-8" />
+              <span className="ml-6">Continue with Google</span>
+            </div>
 
-        <div
-          className="px-7 py-2 outline_btn text-lg"
-          onClick={() => signIn("github")}
-          role="button"
-        >
-          {/* <Image
-            className="pr-2"
-            src="/assets/images/social-github-svgrepo-com.svg"
-            alt="GitHub"
-            width={30}
-            height={30}
-          /> */}
-          <IconGitHub className="pr-2 w-6 h-6" />
-          <span className="ml-6">Continue with GitHub</span>
-        </div>
+            <div
+              className="px-7 py-2 outline_btn text-lg"
+              onClick={() => signIn("github")}
+              role="button"
+            >
+              <IconGitHub className="w-8 h-8" />
+              <span className="ml-6">Continue with GitHub</span>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );

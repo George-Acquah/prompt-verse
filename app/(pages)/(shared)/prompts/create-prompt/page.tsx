@@ -2,6 +2,12 @@ import React from "react";
 import Form from "@/components/Form";
 import { FormDataType, PromptActionState } from "@/schema/prompt.schema";
 import { createPrompt } from "@/app/utils/action";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Create Prompt",
+  description: "Create your prompt to make other creators explore.",
+};
 
 const CreatePrompt = async () => {
   const initialState: PromptActionState = {

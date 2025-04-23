@@ -6,6 +6,12 @@ import { FeatureCards } from "@/components/featureCards";
 import { PromptShowcase } from "@/components/showcase";
 import { Testimonials } from "@/components/testimonials";
 import { IconSparkles, IconCommunity, IconOpenSource } from "@/components/ui/icons";
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Home",
+};
 
 const Home = () => {
   return (
@@ -76,7 +82,7 @@ const Home = () => {
         <CTA
           title="Ready to boost your creativity?"
           description="Join thousands of creators already using PromptVerse"
-          primaryAction={{ label: "Get Started", href: "/signup" }}
+          primaryAction={{ label: "Get Started", href: "/auth/sign-up" }}
           secondaryAction={{ label: "Browse Prompts", href: "/explore" }}
         />
       </div>
