@@ -41,6 +41,9 @@ export const metadata: Metadata = {
       url: "https://github.com/George-Acquah",
     },
   ],
+  verification: {
+    google: "byRodQOk14JQ3yfRZpAkU2JAJHjWixe8q23_oOIq-Us" 
+  } 
 };
 
 const ToastHandler = dynamic(
