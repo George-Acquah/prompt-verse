@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 
-export function useScrollPosition() {
-  const [isAtTop, setIsAtTop] = useState(true);
+export function useScrollPosition(threshold = 300, shouldListen = true) {
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    if (!shouldListen) {
+      setIsScrolled(false);
+      return;
+    }
     const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0);
+      setIsScrolled(window.scrollY > threshold);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initialize the state on mount
-
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [shouldListen, threshold]);
 
-  return { isAtTop };
+  return { isScrolled };
 }
