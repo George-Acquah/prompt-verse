@@ -32,10 +32,10 @@ const ProfilePage = async ({ searchParams }: Params) => {
       </div>
       <Tabs defaultValue={searchParam.tab || "prompts"} className="w-full">
         <ProfileTabLists />
-        <Suspense fallback={<ProfileLoadingSkeleton />}>
+        <Suspense key={searchParam.tab} fallback={<ProfileLoadingSkeleton />}>
           <TabsContent
             value={searchParam.tab || "prompts"}
-            className="sm:min-h-[40vh]"
+            className="sm:min-h-[40vh] my-8"
           >
             <Profile
               tab={searchParam.tab || "prompts"}

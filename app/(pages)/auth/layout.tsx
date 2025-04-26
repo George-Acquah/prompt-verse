@@ -1,12 +1,11 @@
-import { ButtonScrollToBottom } from '@/components/button-scroll-to-bottom';
+import Footer from "@/components/footer";
 
 const layout = ({ children }: IChildren) => {
   return (
     <main className="app">
-      <ButtonScrollToBottom />
-      {children}
+      {children} <Footer />
     </main>
   );
-}
+};
 
-export default layout
+export default layout;

@@ -15,12 +15,12 @@ const useCustomSearchParams = <T extends SearchParamKeys>(
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const modalValue = searchParams.get(SEARCH_PARAMS[entityType]);
+  const modalValue = searchParams.get(SEARCH_PARAMS[entityType]) || null;
 
   const paramValues = useMemo(() => {
     if (valueTypes) {
       return valueTypes.reduce((acc, type) => {
-        acc[type] = searchParams.get(SEARCH_PARAMS[type]);
+        acc[type] = searchParams.get(SEARCH_PARAMS[type]) || null;
         return acc;
       }, {} as Record<T, string | null>);
     }

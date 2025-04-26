@@ -7,8 +7,9 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
 const ProfileTabLists = () => {
-  const { modalValue = "prompts", handleSetParams } =
+  const { modalValue: modV, handleSetParams } =
     useCustomSearchParams("TAB");
+  const modalValue = modV || 'prompts';
 
   const tabsRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -43,11 +44,11 @@ const ProfileTabLists = () => {
         ref={tabsRef}
         className={cn(
           "flex w-full gap-1 bg-muted p-1 rounded-lg",
-          "overflow-x-auto scrollbar-hide snap-x pl-[130px] sm:pl-0" // 👈 KEY FIX
+          "overflow-x-auto scrollbar-hide snap-x pl-[130px] sm:pl-0"
         )}
         style={{
           scrollSnapType: "x mandatory",
-          scrollPaddingLeft: "1rem", // 👈 JS scroll snapping fix
+          scrollPaddingLeft: "1rem",
           WebkitOverflowScrolling: "touch",
         }}
       >

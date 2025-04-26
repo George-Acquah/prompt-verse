@@ -7,7 +7,6 @@ import { Toaster } from "react-hot-toast";
 import "@/styles/globals.css";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import Footer from "@/components/footer";
 import PWARegistration from "@/components/registerPwa";
 import Providers from "./providers";
 
@@ -30,8 +29,7 @@ export const metadata: Metadata = {
   description: "Explore, create and share your favourite AI prompts.",
   manifest: "/manifest.json",
   keywords: ["nextjs", "next15", "pwa", "prompt"],
-  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
-  authors: [
+    authors: [
     {
       name: "George Acquah",
       url: "https://www.linkedin.com/in/george-acquah-993788248",
@@ -70,7 +68,7 @@ export default function RootLayout({
           <div className="gradient" />
         </div>
         {children}
-        <Footer />
+        
         </Providers>
         <PWARegistration />
       </body>
